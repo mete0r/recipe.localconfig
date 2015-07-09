@@ -3,8 +3,10 @@ mete0r.recipe.localconfig
 
 override default config with local files
 
+Example
+-------
 
-example::
+``buildout.cfg``::
 
         [buildout]
         parts = config
@@ -20,7 +22,7 @@ example::
         option = ${config:foo}
 
 
-local-config.json::
+``local-config.json``::
 
         {
                 "foo": "local-value"
@@ -30,10 +32,8 @@ local-config.json::
 Options
 -------
 
-`localconfig.path` (required)
+``localconfig.path`` (required)
+        path to external config file.
 
-path to external config file.
-
-`localconfig.required` (optional, default: false)
-
-whether the external config file should exists
+``localconfig.required`` (optional, default: false)
+        whether the external config file should exists
