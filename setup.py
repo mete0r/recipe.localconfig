@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 #
-#   MYAPP : SOME_DESCRIPTION
+#   mete0r.recipe.localconfig : override default config with local files
 #   Copyright (C) 2015 mete0r <mete0r@sarangbang.or.kr>
 #
 #   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU Affero General Public License as published by
+#   it under the terms of the GNU Lesser General Public License as published by
 #   the Free Software Foundation, either version 3 of the License, or
 #   (at your option) any later version.
 #
 #   This program is distributed in the hope that it will be useful,
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU Affero General Public License for more details.
+#   GNU Lesser General Public License for more details.
 #
-#   You should have received a copy of the GNU Affero General Public License
+#   You should have received a copy of the GNU Lesser General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from __future__ import with_statement
@@ -70,7 +70,7 @@ def readfile(path):
 
 @setup_dir
 def get_version():
-    from MYAPP import __version__
+    from mete0r.recipe.localconfig import __version__
     return __version__
 
 
@@ -88,27 +88,36 @@ def alltests():
 
 
 tests_require = [
+    'zc.buildout',
     'zope.testrunner',
 ]
 
 
 setup_info = {
-    'name': 'MYAPP',
+    'name': 'mete0r.recipe.localconfig',
     'version': get_version(),
-    'description': 'SOME_DESCRIPTION',
-    'long_description': readfile('README.rst') + readfile('CHANGES.rst'),
+    'description': 'override default config with local files',
+    'long_description': (readfile('README.rst') + '\n' +
+                         readfile('CHANGES.rst')),
 
     'author': 'mete0r',
     'author_email': 'mete0r@sarangbang.or.kr',
-    'license': 'GNU Affero General Public License v3 or later (AGPLv3+)',
-    # 'url': 'https://github.com/mete0r/MYAPP',
+    'license': 'GNU Lesser General Public License v3 or later (LGPLv3+)',
+    'url': 'https://github.com/mete0r/recipe.localconfig',
 
+    'namespace_packages': [
+        'mete0r',
+        'mete0r.recipe',
+    ],
     'packages': [
-        'MYAPP',
-        'MYAPP.tests',
+        'mete0r',
+        'mete0r.recipe',
+        'mete0r.recipe.localconfig',
+        'mete0r.recipe.localconfig.tests',
     ],
     'package_dir': {'': '.'},
     'install_requires': [
+        'setuptools',
     ],
     'test_suite': '__main__.alltests',
     'tests_require': tests_require,
@@ -116,31 +125,23 @@ setup_info = {
         'test': tests_require,
     },
     'entry_points': {
-        'console_scripts': [
-            'MYAPP = MYAPP.cli:main'
-        ],
         'zc.buildout': [
-            'default = MYAPP.recipe:Recipe'
-        ],
-        'zc.buildout.uninstall': [
-            'default = MYAPP.recipe:uninstall'
-        ],
-        'paste.app_factory': [
-            'main = MYAPP.wsgi:app_factory'
+            'default = mete0r.recipe.localconfig.recipe:Recipe'
         ],
     },
     'classifiers': [
-        # 'Development Status :: 4 - Beta',
-        # 'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',  # noqa
-        # 'Operating System :: OS Independent',
-        # 'Programming Language :: Python',
-        # 'Programming Language :: Python :: 2.7',
-        # 'Programming Language :: Python :: 3.4',
-        # 'Programming Language :: Python :: Implementation :: CPython',
+        'Development Status :: 3 - Alpha',
+        'Environment :: Plugins',
+        'Framework :: Buildout :: Recipe',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',  # noqa
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: Implementation :: CPython',
     ],
-    'keywords': [],
-    # 'zip_safe': False,
+    'keywords': ['buildout', 'recipe'],
+    'zip_safe': True,
 }
 
 

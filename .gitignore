@@ -11,6 +11,7 @@
 /parts
 /pip-selfcheck.json
 /setuptools-*
+/*.tests.*
 .*.sw?
 *.pyc
 *.pyo
